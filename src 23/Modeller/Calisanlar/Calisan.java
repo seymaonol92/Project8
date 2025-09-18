@@ -11,7 +11,7 @@ public class Calisan {
     private int maas;
     private Departman Departman;
     private String isimKodu = "";
-    private int sayac = 1;
+    private static int sayac = 1;
 
     public Calisan(String adSoyad, int maas, String departmanKodu) {
         this.adSoyad = adSoyad;
@@ -83,12 +83,16 @@ public class Calisan {
 
     // Departman adini verebilmek için bir method
     public String getDepartmanAdi() {
+        String kod = getDepartman().getDepartmanKodu();
 
+        switch (kod){
+            case "BTD": return "Bilişim Teknolojileri Departmanı";
+            case "IKD": return "İnsan Kaynakları Departmanı";
+            case "YD": return "Yönetim Departmanı";
+            default: return "Geçersiz departman";
+        }
         // TODO getDepartmanAdi() methodunu doldurunuz
         // İpucu: Departman Kodu YD ise departman adi Yonetim Departmani olarak kaydedilmelidir.
-
-
-
         return  "???? " ;// TODO burayi unutmayin
     }
 
