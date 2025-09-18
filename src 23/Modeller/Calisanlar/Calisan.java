@@ -89,11 +89,11 @@ public class Calisan {
             case "BTD": return "Bilişim Teknolojileri Departmanı";
             case "IKD": return "İnsan Kaynakları Departmanı";
             case "YD": return "Yönetim Departmanı";
-            default: return "Geçersiz departman";
+            default: return "Cay ocagı buyrun !";
         }
         // TODO getDepartmanAdi() methodunu doldurunuz
         // İpucu: Departman Kodu YD ise departman adi Yonetim Departmani olarak kaydedilmelidir.
-        return  "???? " ;// TODO burayi unutmayin
+        //return  "???? " ;// TODO burayi unutmayin
     }
 
     // Calisana zam yapilmasi için gerekli bir method
