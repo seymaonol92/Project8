@@ -18,6 +18,7 @@ public class Calisanlar {
 
     public static void addACalisan(Calisan calisan) {
 
+
         // TODO Bir çalışan eklemek için gerekli method. addACalisan() methodunu doldurunuz
 
 
