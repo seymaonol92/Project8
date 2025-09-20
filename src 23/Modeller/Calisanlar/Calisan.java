@@ -63,7 +63,7 @@ public class Calisan {
         int boslukIndex= adSoyad.indexOf(" ");
         int sonBoslukIndex = adSoyad.lastIndexOf(" ");
         String ad= adSoyad.substring(0, boslukIndex);
-        String soyad=adSoyad.substring(sonBoslukIndex+1);
+        String soyad=adSoyad.substring(sonBoslukIndex + 1);
         String isimKodu = String.valueOf((ad.charAt(0) +  soyad.charAt(0))).toUpperCase();
 
         return  isimKodu ;// TODO burayi unutmayin
@@ -93,7 +93,7 @@ public class Calisan {
         }
         // TODO getDepartmanAdi() methodunu doldurunuz
         // İpucu: Departman Kodu YD ise departman adi Yonetim Departmani olarak kaydedilmelidir.
-        return  "???? " ;// TODO burayi unutmayin
+        return  "???? " ;  // TODO burayi unutmayin
     }
 
     // Calisana zam yapilmasi için gerekli bir method
