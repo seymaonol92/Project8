@@ -113,7 +113,7 @@ public class Calisan {
         // TODO toString() metheodunu doldurunuz
         // İpucu: Detayli anlatim EmployeesRequirements.pdf içerisinde.
 
-        return  "???? " ;// TODO burayi unutmayin
+        return  "Calisan ID : '" + calisanId + "', Isim Soyisim : '" + adSoyad + "', Maas : '" + maas + "', Departman : '" + getDepartmanAdi() + "'" ;  // TODO burayi unutmayin
 
 
 
