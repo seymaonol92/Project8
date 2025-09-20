@@ -93,7 +93,8 @@ public class Calisan {
         }
         // TODO getDepartmanAdi() methodunu doldurunuz
         // İpucu: Departman Kodu YD ise departman adi Yonetim Departmani olarak kaydedilmelidir.
-        return  "???? " ;// TODO burayi unutmayin
+        // TODO burayi unutmayin
+
     }
 
     // Calisana zam yapilmasi için gerekli bir method
