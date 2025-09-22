@@ -89,6 +89,12 @@ public class Calisan {
     }
 
 
+
+
+
+
+
+
         public static void zamYap(String calisanId) {
         if (calisanId.equals("")){
             System.out.println("böyle bir çalışan yok");
