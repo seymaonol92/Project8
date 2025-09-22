@@ -1,7 +1,9 @@
 package Modeller.Calisanlar;
+import Veritabani.Calisanlar;
 
 import Modeller.Departmanlar.Departman;
 import Veritabani.Calisanlar;
+import Veritabani.Departmanlar;
 import com.sun.tools.javac.Main;
 
 public class Calisan {
@@ -11,34 +13,33 @@ public class Calisan {
     private int maas;
     private Departman Departman;
     private String isimKodu = "";
-    private static int sayac = 1;
+    private static int sayac = 0;
 
     public Calisan(String adSoyad, int maas, String departmanKodu) {
         this.adSoyad = adSoyad;
         this.maas = maas;
         setDepartman(departmanKodu);
-        this.setCalisanId();    // constructor çalıştığında, aşağıda tanımlayacağınız bu metod vasıtasıyla tekil bi ID alacak...
-                                // Örn: Şirkette 257 calisan var, Bilişim teklonojileri departmaninda Mehmet Ali Bulut kaydedilecek olsun,
-                                // Mehmet Ali icin ID 'BTD258MAB' olmalıdır.
+        this.setCalisanId();
+
         Calisanlar.addACalisan(this);
 
     }
 
-    // Terminalden girilen calisanin departman koduna göre, gerekli departman set edilmelidir.
-    // Çalışan sınıfının Constructor 'ı main'de tanımlı. Program çalıştığında, terminalden gireceğimiz
-    // departman kodu, buradaki metod (setDepartman) vasıtasıyla departman listesinin tümünü dolaşıp (foreach)
-    // getDepartmanKodu() ile bulunan sonuçlardan biriyle aynı mı? Diye bakıyoruz...
-    // Aynıysa, "terminalden girilen çalışanı bu departmana set et" demektir...
-    private void setDepartman(String departman) {
-        // TODO setDepartman() methodunu doldurunuz
+    public int getMaas() {
+        return maas;
+    }
 
-        //  Terminalden girilen calisanin departman koduna göre, gerekli departman set edilmelidir.
-        //  Çalışan sınıfının Constructor 'ı main'de tanımlı. Program çalıştığında, terminalden gireceğimiz
-        //  departman kodu, buradaki metod (setDepartman) vasıtasıyla departman listesinin tümünü dolaşıp (foreach)
-        //  getDepartmanKodu() ile bulunan sonuçlardan biriyle aynı mı? Diye bakıyoruz...
-        //  Aynıysa, "terminalden girilen çalışanı bu departmana set et" demektir...
-        //  İpucu: Departman listesinin (Veritabani.Departmanlar.DepartmanList) içerisindeki departmanların kodları var,
-        //  bu kodlari donguye tutmak ise yarayabilir.
+    public void setMaas(int maas) {
+        this.maas = maas;
+    }
+
+    private void setDepartman(String departman) {
+        for (Departman depart: Departmanlar.getDepartmanList() ){
+            if (depart.getDepartmanKodu().equalsIgnoreCase(departman));
+            this.Departman=depart;
+        }
+
+
 
 
 
@@ -46,27 +47,17 @@ public class Calisan {
 
 
     private void setCalisanId() {
-        // TODO setCalisanId() methodunu doldurunuz
-        // Calisanin ID sinin kendisine özel olduğundan bahsetmistik,
-        // ID nin nasil kaydedileceği Readme Dosyasi içerisinde yer aliyor.
-
-         this.calisanId = getDepartman().getDepartmanKodu()+ sayac + getCalisanIsimKodu();
+        sayac += Calisanlar.getCalisanList().size()+1;
+        this.calisanId = this.Departman.getDepartmanKodu()+ sayac + getCalisanIsimKodu();
 
     }
 
     private String getCalisanIsimKodu() {
-        // TODO getCalisanIsimKOdu() methodunu doldurunuz
-        // Calisanin ID sinin sonuna isim kodu eklenmesi için, ismi parçalayan bir method
-        // Basit string metodlari ise isinize cok yarayacaktir fakat dinamik olmasina dikkat edelim...
-        // Mesela 2 isim bir soyisim girildiğinde hata vermesin.
-
-        int boslukIndex= adSoyad.indexOf(" ");
-        int sonBoslukIndex = adSoyad.lastIndexOf(" ");
-        String ad= adSoyad.substring(0, boslukIndex);
-        String soyad=adSoyad.substring(sonBoslukIndex + 1);
-        String isimKodu = String.valueOf((ad.charAt(0) +  soyad.charAt(0))).toUpperCase();
-
-        return  isimKodu ;// TODO burayi unutmayin
+        String[] isimler = adSoyad.split(" ");
+        for (String isim : isimler) {
+            this.isimKodu += isim.substring(0, 1).toUpperCase();
+        }
+        return this.isimKodu;
     }
 
 
@@ -85,35 +76,46 @@ public class Calisan {
     public String getDepartmanAdi() {
         String kod = getDepartman().getDepartmanKodu();
 
-        switch (kod){
-            case "BTD": return "Bilişim Teknolojileri Departmanı";
-            case "IKD": return "İnsan Kaynakları Departmanı";
-            case "YD": return "Yönetim Departmanı";
-            default: return "Geçersiz departman";
+        switch (kod) {
+            case "BTD":
+                return "Bilişim Teknolojileri Departmanı";
+            case "IKD":
+                return "İnsan Kaynakları Departmanı";
+            case "YD":
+                return "Yönetim Departmanı";
+            default:
+                return "Geçersiz departman";
         }
-        // TODO getDepartmanAdi() methodunu doldurunuz
-        // İpucu: Departman Kodu YD ise departman adi Yonetim Departmani olarak kaydedilmelidir.
-        return  "???? " ;  // TODO burayi unutmayin
     }
 
-    // Calisana zam yapilmasi için gerekli bir method
+
         public static void zamYap(String calisanId) {
+        if (calisanId.equals("")){
+            System.out.println("böyle bir çalışan yok");
+        }else {
+            for (Calisan calisan: Calisanlar.getCalisanList()){
+                if (calisan.getCalisanId().equals(calisanId)){
+                    int oran= calisan.getDepartman().getZamOrani();
+                    calisan.maas= calisan.maas+ (calisan.maas*oran/100);
+                    System.out.println("zam yapıldı ");
+                    return;
+                }
+            }
+        }
 
-        // TODO zamYap() methodunu doldurunuz
-        // İpucu:Calisan ID si kullanilarak yapilmalidir, diğer attributelarin aynilarindan 1 er tane daha olabilirdi.
 
 
 
     }
 
-    // Calisanlari yazdırmak için gerekli bir override
+
     @Override
     public String toString() {
 
         // TODO toString() metheodunu doldurunuz
         // İpucu: Detayli anlatim EmployeesRequirements.pdf içerisinde.
 
-        return  "Calisan ID : '" + calisanId + "', Isim Soyisim : '" + adSoyad + "', Maas : '" + maas + "', Departman : '" + getDepartmanAdi() + "'" ;  // TODO burayi unutmayin
+        return  "Calisan ID : '" + calisanId + "', Isim Soyisim : '" + adSoyad + "', Maas : '" + maas + "', Departman : '" + getDepartmanAdi() + "'" ;
 
 
 

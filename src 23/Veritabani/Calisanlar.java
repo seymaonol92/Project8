@@ -17,41 +17,40 @@ public class Calisanlar {
 
 
     public static void addACalisan(Calisan calisan) {
-
-
-        // TODO Bir çalışan eklemek için gerekli method. addACalisan() methodunu doldurunuz
-
-
+        calisanList.add(calisan);
     }
 
 
     public static void deleteACalisanWithId(String calisanId) {
-
-        // TODO Bir çalışan silmek için gerekli method. deleteACalisanWithId() methodunu doldurunuz
-
-
+        boolean bulunduMu= false;
+        for (Calisan calisan: calisanList){
+            if (calisan.getCalisanId().equals(calisanId)){
+                calisanList.remove(calisan);
+                bulunduMu=true;
+                System.out.println("çalışan başarıyla silindi.");
+                break;
+            }
+        }
+        if (!bulunduMu){
+            System.out.println("böyle bir çalışan yok.");
+        }
 
     }
 
 
     public static void printDepartmandakiCalisanlar(String departmanKodu) {
-
-        // TODO  Departman kodu verilerek, konsola sadece o departmanda calisanlari yazdirmak için
-        //       printDepartmandakiCalisanlar() methodunu doldurunuz
-
-
-
-
-
+        for (Calisan calisan2 : calisanList) {
+            if (calisan2.getDepartman().getDepartmanKodu().equals(departmanKodu)) {
+                System.out.println(calisan2);
+            }
+        }
     }
 
 
     public static void printCalisanlar() {
-
-        // TODO  Calisanlari konsola yazdirmak için printCalisanlar() methodunu doldurun
-
-
-
+        for (Calisan calisan3: calisanList){
+            System.out.println(calisan3);
+        }
 
     }
 }
