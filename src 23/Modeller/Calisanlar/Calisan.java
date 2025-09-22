@@ -87,15 +87,7 @@ public class Calisan {
                 return "Geçersiz departman";
         }
     }
-
-
-
-
-
-
-
-
-        public static void zamYap(String calisanId) {
+    public static void zamYap(String calisanId) {
         if (calisanId.equals("")){
             System.out.println("böyle bir çalışan yok");
         }else {
@@ -108,10 +100,6 @@ public class Calisan {
                 }
             }
         }
-
-
-
-
     }
 
 
